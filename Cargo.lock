@@ -1741,6 +1741,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "dhat"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "98cd11d84628e233de0ce467de10b8633f4ddaecafadefc86e13b84b8739b827"
+dependencies = [
+ "backtrace",
+ "lazy_static",
+ "mintex",
+ "parking_lot",
+ "rustc-hash 1.1.0",
+ "serde",
+ "serde_json",
+ "thousands",
+]
+
+[[package]]
 name = "diatomic-waker"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4578,6 +4594,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e53debba6bda7a793e5f99b8dacf19e626084f525f7829104ba9898f367d85ff"
 
 [[package]]
+name = "mintex"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9bec4598fddb13cc7b528819e697852653252b760f1228b7642679bf2ff2cd07"
+
+[[package]]
 name = "mio"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5481,11 +5503,11 @@ checksum = "953ec861398dccce10c670dfeaf3ec4911ca479e9c02154b3a215178c5f566f2"
 
 [[package]]
 name = "plonky2"
-version = "0.2.2"
-source = "git+https://github.com/mir-protocol/plonky2#2488cdacd49ede15737bc1172546d82e9521b79b"
+version = "1.0.0"
 dependencies = [
  "ahash",
  "anyhow",
+ "dhat",
  "getrandom",
  "hashbrown 0.14.5",
  "itertools 0.11.0",
@@ -5505,8 +5527,7 @@ dependencies = [
 
 [[package]]
 name = "plonky2_field"
-version = "0.2.2"
-source = "git+https://github.com/mir-protocol/plonky2#2488cdacd49ede15737bc1172546d82e9521b79b"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "itertools 0.11.0",
@@ -5520,16 +5541,14 @@ dependencies = [
 
 [[package]]
 name = "plonky2_maybe_rayon"
-version = "0.2.0"
-source = "git+https://github.com/mir-protocol/plonky2#2488cdacd49ede15737bc1172546d82e9521b79b"
+version = "1.0.0"
 dependencies = [
  "rayon",
 ]
 
 [[package]]
 name = "plonky2_util"
-version = "0.2.0"
-source = "git+https://github.com/mir-protocol/plonky2#2488cdacd49ede15737bc1172546d82e9521b79b"
+version = "1.0.0"
 
 [[package]]
 name = "plotters"
@@ -5627,6 +5646,7 @@ dependencies = [
  "parcnet-pod",
  "plonky2",
  "rand 0.8.5",
+ "rand_core 0.6.4",
  "serde",
 ]
 
@@ -7785,6 +7805,12 @@ dependencies = [
  "quote",
  "syn 2.0.87",
 ]
+
+[[package]]
+name = "thousands"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3bf63baf9f5039dadc247375c29eb13706706cfde997d0330d05aa63a77d8820"
 
 [[package]]
 name = "thread_local"
