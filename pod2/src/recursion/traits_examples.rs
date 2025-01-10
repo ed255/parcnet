@@ -18,6 +18,19 @@ use crate::{C, D, F};
 
 pub struct ExampleIntroducer {}
 
+struct OneNg {}
+
+use rand_core::block::{BlockRng, BlockRngCore};
+impl BlockRngCore for OneNg {
+    type Item = u32;
+    type Results = [u32; 16];
+    fn generate(&mut self, results: &mut Self::Results) {
+        for elem in results.iter_mut() {
+            *elem = 1;
+        }
+    }
+}
+
 impl IntroducerCircuitTrait for ExampleIntroducer {
     type Targets = ExampleGadgetTargets;
     type Input = ExampleGadgetInput;
@@ -27,7 +40,7 @@ impl IntroducerCircuitTrait for ExampleIntroducer {
     /// circuit.
 
     fn dummy_inputs() -> Result<Self::Input> {
-        let mut rng: rand::rngs::ThreadRng = rand::thread_rng();
+        let mut rng = BlockRng::new(OneNg {});
         let schnorr = SchnorrSigner::new();
         let msg: Vec<F> = vec![F::ZERO, F::ZERO, F::ZERO, F::ZERO];
         let sk: SchnorrSecretKey = SchnorrSecretKey { sk: 0u64 };
@@ -76,6 +89,7 @@ impl IntroducerCircuitTrait for ExampleIntroducer {
     }
 }
 
+#[derive(Debug)]
 pub struct ExampleGadgetInput {
     pub pk: SchnorrPublicKey,
     pub sig: SchnorrSignature,

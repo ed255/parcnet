@@ -16,7 +16,7 @@ use crate::{PlonkyProof, C, D, F};
 /// methods that need to be implemented are `add_targets` and `set_targets`.
 pub trait IntroducerCircuitTrait {
     type Targets;
-    type Input;
+    type Input: std::fmt::Debug;
 
     /// return dummy inputs that will satisfy the circuit. This is used to generate the
     /// dummy_proof.
@@ -57,6 +57,7 @@ pub trait IntroducerCircuitTrait {
 
         // prepare some dummy signature
         let input = Self::dummy_inputs()?;
+        // println!("input\n{:#?}", input); // Eq
 
         let targets = Self::add_targets(&mut builder)?;
         // pad min gates
@@ -66,6 +67,7 @@ pub trait IntroducerCircuitTrait {
 
         let mut pw = PartialWitness::new();
         Self::set_targets(&mut pw, &targets, &input)?;
+        // println!("pw\n{:#?}", pw); // Eq
 
         let proof = circuit_data.prove(pw)?;
         Ok(proof.proof)

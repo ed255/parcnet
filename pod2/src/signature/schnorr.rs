@@ -6,6 +6,7 @@ use plonky2::field::types::PrimeField64;
 use plonky2::hash::poseidon::PoseidonHash;
 use plonky2::plonk::config::Hasher;
 use rand::Rng;
+use rand_core::RngCore;
 use serde::Deserialize;
 use serde::Serialize;
 
@@ -80,7 +81,7 @@ impl SchnorrSigner {
         h.elements[0].to_canonical_u64() % self.prime_group_order
     }
 
-    pub fn rand_group_multiplier(&self, rng: &mut rand::rngs::ThreadRng) -> u64 {
+    pub fn rand_group_multiplier<R: RngCore>(&self, mut rng: R) -> u64 {
         let group_order: u64 = (1 << 16) + 1;
         rng.gen_range(0..group_order)
     }
@@ -91,11 +92,11 @@ impl SchnorrSigner {
             .collect()
     }
 
-    pub fn sign(
+    pub fn sign<R: RngCore>(
         &self,
         msg: &[GoldilocksField],
         sk: &SchnorrSecretKey,
-        rng: &mut rand::rngs::ThreadRng,
+        rng: R,
     ) -> SchnorrSignature {
         let k: u64 = self.rand_group_multiplier(rng);
         let r: GoldilocksField = Self::pow(self.prime_group_gen, k);
